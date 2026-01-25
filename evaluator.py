@@ -14,3 +14,12 @@ class Evaluator:
             effort * Evaluator.EFFORT_WEIGHT + 
             candidate.luck * Evaluator.LUCK_WEIGHT
             )
+    
+    @staticmethod
+    def evaluate_without_luck(candidate):
+        effort = (
+            candidate.skill + 
+            candidate.experience + candidate.hard_work
+            )/ 3
+        
+        return effort
