@@ -2,7 +2,6 @@ class Evaluator:
     EFFORT_WEIGHT = 0.95
     LUCK_WEIGHT = 0.05
 
-
     @staticmethod
     def evaluate_with_luck(candidate):
         effort = (
