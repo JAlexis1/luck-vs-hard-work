@@ -11,7 +11,7 @@ class Evaluator:
         
         return (
             effort * Evaluator.EFFORT_WEIGHT + 
-            candidate.luck * Evaluator.LUCK_WEIGHT
+            candidate.luck * Evaluator.LUCK_WEIGHT, candidate.luck # to know the luck of the candidate 
             )
     
     @staticmethod
