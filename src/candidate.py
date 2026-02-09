@@ -2,10 +2,10 @@ from random import randint
 
 class Candidate:
     def __init__(self):
-        self._skill = self.assign_score()
-        self._experience = self.assign_score()
-        self._hard_work = self.assign_score()
-        self._luck = self.assign_score()
+        self._skill = self._assign_score()
+        self._experience = self._assign_score()
+        self._hard_work = self._assign_score()
+        self._luck = self._assign_score()
     
     @property
     def skill(self):
@@ -23,7 +23,7 @@ class Candidate:
     def luck(self): 
         return self._luck
     
-    def assign_score(self):
+    def _assign_score(self):
         MAX_SCORE = 100
         MIN_SCORE = 1
         return randint(MIN_SCORE, MAX_SCORE)
