@@ -5,6 +5,21 @@ class Stats:
         self.runs = len(luck_candidates)
         self.candidates = len(luck_candidates[0])
 
+    def get_top_n_candidates(self, top_n):
+        if top_n > self.candidates:
+            raise ValueError("top_n must be less than or equal to the number of candidates")
+        top_luck_candidates = []
+        top_no_luck_candidates = []
+        for i in range(self.runs):
+            selected_luck_candidates = []
+            selected_no_luck_candidates = [] # auxiliar lists to store the top n candidates for each run
+            for j in range(top_n):
+                selected_luck_candidates.append(self.luck_candidates[i][j][0])
+                selected_no_luck_candidates.append(self.no_luck_candidates[i][j][0])
+            top_luck_candidates.append(selected_luck_candidates)
+            top_no_luck_candidates.append(selected_no_luck_candidates)
+        return top_luck_candidates, top_no_luck_candidates
+
     def calculate_luck_average(self, top_n):
         sum_of_run_averages = 0
         for run in range(self.runs):
@@ -14,14 +29,3 @@ class Stats:
             sum_of_run_averages += total_luck/top_n
         luck_average = sum_of_run_averages/self.runs
         return luck_average
-    
-    def get_top_n_candidates(self, sorted_candidates, top_n):
-        if top_n > len(sorted_candidates[0]):
-            raise ValueError("top_n must be less than or equal to the number of candidates")
-        top_candidates = []
-        for i in range(len(sorted_candidates)):
-            selected_candidates = [] # auxiliar list to store the top n candidates for each run
-            for j in range(top_n):
-                selected_candidates.append(sorted_candidates[i][j][0])
-            top_candidates.append(selected_candidates)
-        return top_candidates
