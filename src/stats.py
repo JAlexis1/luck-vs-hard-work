@@ -1,0 +1,42 @@
+class Stats:
+    def __init__(self, luck_candidates, no_luck_candidates):
+        self.luck_candidates = luck_candidates
+        self.no_luck_candidates = no_luck_candidates
+        self.runs = len(luck_candidates)
+        self.candidates = len(luck_candidates[0])
+
+    def get_top_n_candidates(self, top_n):
+        if top_n > self.candidates:
+            raise ValueError("top_n must be less than or equal to the number of candidates")
+        top_luck_candidates = []
+        top_no_luck_candidates = []
+        for i in range(self.runs):
+            selected_luck_candidates = []
+            selected_no_luck_candidates = [] # auxiliar lists to store the top n candidates for each run
+            for j in range(top_n):
+                selected_luck_candidates.append(self.luck_candidates[i][j][0])
+                selected_no_luck_candidates.append(self.no_luck_candidates[i][j][0])
+            top_luck_candidates.append(selected_luck_candidates)
+            top_no_luck_candidates.append(selected_no_luck_candidates)
+        return top_luck_candidates, top_no_luck_candidates
+
+    def calculate_luck_average(self, top_n):
+        sum_of_run_averages = 0
+        for run in range(self.runs):
+            total_luck = 0
+            for candidate in range(top_n):
+                total_luck += self.luck_candidates[run][candidate][1][1] # to get the luck score of the candidate
+            sum_of_run_averages += total_luck/top_n
+        luck_average = sum_of_run_averages/self.runs
+        return luck_average
+    
+    def selection_overlap(self, top_n):
+        top_luck_candidates, top_no_luck_candidates = self.get_top_n_candidates(top_n)
+        overlap_count = 0
+        for i in range(self.runs):
+            no_luck_set = set(top_no_luck_candidates[i]) # to optimize the search of candidates in the no luck list
+            for candidate in top_luck_candidates[i]:
+                if candidate in no_luck_set:
+                    overlap_count += 1
+        average_overlap = overlap_count/self.runs
+        return average_overlap
