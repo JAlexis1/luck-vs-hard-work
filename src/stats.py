@@ -29,3 +29,14 @@ class Stats:
             sum_of_run_averages += total_luck/top_n
         luck_average = sum_of_run_averages/self.runs
         return luck_average
+    
+    def selection_overlap(self, top_n):
+        top_luck_candidates, top_no_luck_candidates = self.get_top_n_candidates(top_n)
+        overlap_count = 0
+        for i in range(self.runs):
+            no_luck_set = set(top_no_luck_candidates[i]) # to optimize the search of candidates in the no luck list
+            for candidate in top_luck_candidates[i]:
+                if candidate in no_luck_set:
+                    overlap_count += 1
+        average_overlap = overlap_count/self.runs
+        return average_overlap
