@@ -2,9 +2,9 @@ from simulation import Simulation
 from stats import Stats
 
 if __name__ == "__main__":
-    candidates = 200
+    candidates = 100
     runs = 1000
-    top_n = 11
+    top_n = 1
 
     simulation = Simulation(candidates, runs)
     simulation_with_luck, simulation_without_luck = simulation.run()
